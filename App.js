@@ -1,4 +1,3 @@
-// https://snack.expo.io/@waleedbutt98/sp18-bcs-170-lab08-tictactoe
 import React, { useState } from 'react';
 import {
   StyleSheet,
