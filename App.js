@@ -1,11 +1,10 @@
 // https://snack.expo.io/@waleedbutt98/sp18-bcs-170-lab08-tictactoe
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
-  StatusBar,
 } from 'react-native';
 
 // Function for custom Button
@@ -42,29 +41,28 @@ const App = () => {
   const [getTurn, setTurn] = useState(turn()); // Deciding Turn
   const [getArr, setArr] = useState(arr); // Current Array State
   const [getDisplay, setDisplay] = useState('Main'); // Hook rendered component
-  const [getWin, setWin] = useState(''); // Hooks for decding who won
+  const [getWin, setWin] = useState(''); // Hooks for deciding who won
   const [getXscore, setXscore] = useState(0); // Score for player X
   const [getOscore, setOscore] = useState(0); // Score for player O
 
   // Update Score
   const update_score = () => {
     getTurn === 'X' ?
-        setXscore(Number.parseInt(getXscore, 10)+1) :
-        setOscore(Number.parseInt(getOscore, 10)+1);
+      setXscore(Number.parseInt(getXscore, 10) + 1) :
+      setOscore(Number.parseInt(getOscore, 10) + 1);
   }
 
   // Function to see who won
   const check_win = () => {
 
     // Checking Rows are Matching
-    for ( let i = 0 ; i < 3  ; i++ ) {
+    for (let i = 0; i < 3; i++) {
 
       // Don't compare empty strings
-      if (( (arr[i][0] === '') || (arr[i][1] === '') || (arr[i][2] === ''))) continue;
+      if (((arr[i][0] === '') || (arr[i][1] === '') || (arr[i][2] === ''))) continue;
 
       // Normal Comparison
-      if (( (arr[i][0] === arr[i][1]) && (arr[i][1] === arr[i][2]) ))
-      {
+      if (((arr[i][0] === arr[i][1]) && (arr[i][1] === arr[i][2]))) {
         console.log("row");
 
         setWin(arr[i][0] + ' Won !!');
@@ -74,14 +72,13 @@ const App = () => {
     }
 
     // Checking columns are matching
-    for ( let i = 0 ; i < 3  ; i++ ) {
+    for (let i = 0; i < 3; i++) {
 
       // Don't compare empty strings
-      if (( (arr[0][i] === '') || (arr[1][i] === '') || (arr[2][i] === ''))) continue;
+      if (((arr[0][i] === '') || (arr[1][i] === '') || (arr[2][i] === ''))) continue;
 
       // Normal Comparison
-      if (((arr[0][i] === arr[1][i]) && (arr[1][i] === arr[2][i])))
-      {
+      if (((arr[0][i] === arr[1][i]) && (arr[1][i] === arr[2][i]))) {
         console.log("col");
         setWin(arr[0][i] + ' Won !!');
         update_score();
@@ -91,7 +88,7 @@ const App = () => {
 
     // Checking Diagonals are Matching
     if
-    (
+      (
       ( // Main Diagonal is Matching
         (arr[0][0] !== '') &&
         (arr[1][1] !== '') &&
@@ -103,8 +100,7 @@ const App = () => {
         (arr[2][0] !== '') &&
         (arr[0][2] === arr[1][1]) && (arr[0][2] === arr[2][0]))
 
-    )
-    {
+    ) {
       console.log("diagonal");
       setWin(getTurn + ' Won !!');
       update_score();
@@ -112,8 +108,8 @@ const App = () => {
     }
 
     // Checking if Draw
-    for ( let  i = 0 ; i < 3 ; i++ ) {
-      for ( let j = 0 ; j < 3 ; j++ ) {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
         if (arr[i][j] === '') {
           return false;
         }
@@ -134,7 +130,7 @@ const App = () => {
 
     // index passed
     let i = Number.parseInt(args[1], 10) || 0,
-        j = Number.parseInt(args[2], 10) || 0;
+      j = Number.parseInt(args[2], 10) || 0;
 
     // Then Map the response to each operator
     switch (btn_clicked) {
@@ -164,7 +160,7 @@ const App = () => {
         arr = getArr;
 
         // Checking if the game is ended
-        if(getWin.length !== 0) break ;
+        if (getWin.length !== 0) break;
 
         // Updating Array with turn
         if (arr[i][j].length === 0) {
@@ -175,10 +171,10 @@ const App = () => {
           // Re-render
           setArr(arr);
         }
-        else break ;
+        else break;
 
         // See if somebody won or it was a draw
-        if(check_win()) break;
+        if (check_win()) break;
 
         // Updating Next Turn
         getTurn === 'X' ? setTurn('O') : setTurn('X');
@@ -285,7 +281,7 @@ const App = () => {
             style={styles.btn_nav}
             txt_style={styles.btn_nav_txt}
             onPress={btn_click}
-            title={'Quit'}
+            title={'Go To Home Screen'}
           />
           <AppButton
             style={styles.btn_nav}
@@ -301,7 +297,6 @@ const App = () => {
 
   return (
     <>
-      <StatusBar transluscent={false} />
       <View>
         {getDisplay === 'Main' ? main_menu : game_view}
       </View>
@@ -312,6 +307,8 @@ const App = () => {
 // Styling Sheet
 const styles = StyleSheet.create({
   container: {
+    
+    padding: '5%',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
@@ -323,7 +320,12 @@ const styles = StyleSheet.create({
   },
 
   btn_menu: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#000000',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    overflow: 'hidden',
     width: '50%',
     height: '7%',
     alignItems: 'center',
@@ -333,6 +335,7 @@ const styles = StyleSheet.create({
 
   btn_menu_txt: {
     fontFamily: 'sans-serif-light',
+    color: '#ffffff',
   },
 
   stats_text: {
@@ -350,7 +353,16 @@ const styles = StyleSheet.create({
   },
 
   message: {
-    fontSize: 40,
+    backgroundColor: '#000',
+    fontSize: 25,
+    color:'#fff',
+    borderBottomLeftRadius: 10,
+  borderBottomRightRadius: 10,
+  borderTopRightRadius: 10,
+  borderTopLeftRadius: 10,
+  overflow: 'hidden',
+  padding: '2%',
+  marginBottom:'1%',
   },
 
   btn_area: {
@@ -389,13 +401,20 @@ const styles = StyleSheet.create({
 
   btn_nav: {
     width: '48%',
-    backgroundColor: '#e5e5e5',
+    backgroundColor: '#000',
+    borderBottomLeftRadius: 30,
+  borderBottomRightRadius: 30,
+  borderTopRightRadius: 30,
+  borderTopLeftRadius: 30,
+  overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   btn_nav_txt: {
-    fontSize: 30,
+    padding:'10%',
+    fontSize: 15,
+    color:'#fff',
   },
 });
 
